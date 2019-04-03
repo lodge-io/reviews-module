@@ -6,10 +6,10 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      expanded: false,
       mockData: {
         reviews: [],
-      }
+      },
+      expanded: false,
     };
     this.getMockData = this.getMockData.bind(this);
   }
@@ -31,15 +31,12 @@ class App extends React.Component {
       error: () => {console.log('error')}
     });
   }
-    
-
+ 
   render() {
     return (
       <div>
-        <div>
-          Hello
-        </div>
-        <div>{`${this.state.mockData.reviews.length} Reviews`}</div>
+        <div>{this.state.mockData.reviews.length} Reviews</div>
+        <input type="text" name="name" />
         <div><ListingList listing={this.state.mockData.reviews} /></div>
       </div>
     );
