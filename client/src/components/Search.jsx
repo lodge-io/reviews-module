@@ -5,7 +5,7 @@ const Search = props => (
     <input 
       type="text"
       onChange={(event) => {props.handleChange(event)}}/>
-    <button className="searchButton" onClick={props.handleClick}>Go</button>
+    <button className="searchButton" onClick={props.handleFilterReview}>Go</button>
   </div>
 )
 
