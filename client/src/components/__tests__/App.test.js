@@ -5,13 +5,6 @@ import App from '../App.jsx';
 import ListingList from '../ListingList.jsx';
 import ListingListEntry from '../ListingListEntry.jsx';
 
-// describe('WelcomeMessage Test Suite', () => {
-//   it('Should say Webpack setup', () => {
-//     const wrapper = shallow(<App />);
-//     expect(wrapper.text()).toEqual(`Hello`);
-//   });
-// });
-
 
 describe('Component mounts and renders', () => {
   test ('Should mount and render', () => {
@@ -35,34 +28,39 @@ describe('listing entry', () => {
   });
 });
 
- const multipleReviews =
- [{accuracy: 5,
-  checkin: 2,
-  cleanliness: 3,
-  communication: 3,
-  date: "October 2000",
-  image: "https://s3.amazonaws.com/uifaces/faces/twitter/rpatey/128.jpg",
-  location: 2,
-  name: "Janie",
-  reviewbody: "Aut et praesentium nisi sapiente dolor sed. Esse sunt sed aperiam adipisci dolorem. Numquam laborum accusamus quam enim quam hic ex. Facere ut beatae vel commodi alias nihil asperiores eveniet. Sint magnam ipsa quo. Autem aut quae quia. Beatae nostrum quia ducimus. Possimus iusto et aliquam voluptatum vero tempore. Rerum enim consequatur ratione sint ad dicta exercitationem sed assumenda. Modi adipisci placeat vel quia non sed et ipsum iste. Consequuntur sequi dolorem. Veritatis sapiente rerum officia. Dolores voluptatem modi. Est fuga eos rerum. Quo et vero cum. Laudantium fugiat similique necessitatibus labore debitis minus necessitatibus. Voluptas sunt sapiente enim rerum. Occaecati quia nemo ut ipsa.",
-  value: 5 
-  }, 
-  { accuracy: 5,
-    checkin: 2,
-    cleanliness: 3,
-    communication: 3,
-    date: "October 2000",
-    image: "https://s3.amazonaws.com/uifaces/faces/twitter/rpatey/128.jpg",
-    location: 2,
-    name: "Janie",
-    reviewbody: "Aut et praesentium nisi sapiente dolor sed. Esse sunt sed aperiam adipisci dolorem. Numquam laborum accusamus quam enim quam hic ex. Facere ut beatae vel commodi alias nihil asperiores eveniet. Sint magnam ipsa quo. Autem aut quae quia. Beatae nostrum quia ducimus. Possimus iusto et aliquam voluptatum vero tempore. Rerum enim consequatur ratione sint ad dicta exercitationem sed assumenda. Modi adipisci placeat vel quia non sed et ipsum iste. Consequuntur sequi dolorem. Veritatis sapiente rerum officia. Dolores voluptatem modi. Est fuga eos rerum. Quo et vero cum. Laudantium fugiat similique necessitatibus labore debitis minus necessitatibus. Voluptas sunt sapiente enim rerum. Occaecati quia nemo ut ipsa.",
-    value: 5, 
-  }]
+const props = {
+   listing: [
+     {
+       accuracy: 5,
+       checkin: 2,
+       cleanliness: 3,
+       communication: 3,
+       date: "October 2000",
+       image: "https://s3.amazonaws.com/uifaces/faces/twitter/rpatey/128.jpg",
+       location: 2,
+       name: "Janie",
+       reviewbody: "Aut et praesentium nisi sapiente dolor sed. Esse sunt sed aperiam adipisci dolorem. Numquam laborum accusamus quam enim quam hic ex. Facere ut beatae vel commodi alias nihil asperiores eveniet. Sint magnam ipsa quo. Autem aut quae quia. Beatae nostrum quia ducimus. Possimus iusto et aliquam voluptatum vero tempore. Rerum enim consequatur ratione sint ad dicta exercitationem sed assumenda. Modi adipisci placeat vel quia non sed et ipsum iste. Consequuntur sequi dolorem. Veritatis sapiente rerum officia. Dolores voluptatem modi. Est fuga eos rerum. Quo et vero cum. Laudantium fugiat similique necessitatibus labore debitis minus necessitatibus. Voluptas sunt sapiente enim rerum. Occaecati quia nemo ut ipsa.",
+       value: 5 
+     },
+     {
+       accuracy: 5,
+       checkin: 2,
+       cleanliness: 3,
+       communication: 3,
+       date: "October 2000",
+       image: "https://s3.amazonaws.com/uifaces/faces/twitter/rpatey/128.jpg",
+       location: 2,
+       name: "Janie",
+       reviewbody: "Aut et praesentium nisi sapiente dolor sed. Esse sunt sed aperiam adipisci dolorem. Numquam laborum accusamus quam enim quam hic ex. Facere ut beatae vel commodi alias nihil asperiores eveniet. Sint magnam ipsa quo. Autem aut quae quia. Beatae nostrum quia ducimus. Possimus iusto et aliquam voluptatum vero tempore. Rerum enim consequatur ratione sint ad dicta exercitationem sed assumenda. Modi adipisci placeat vel quia non sed et ipsum iste. Consequuntur sequi dolorem. Veritatis sapiente rerum officia. Dolores voluptatem modi. Est fuga eos rerum. Quo et vero cum. Laudantium fugiat similique necessitatibus labore debitis minus necessitatibus. Voluptas sunt sapiente enim rerum. Occaecati quia nemo ut ipsa.",
+       value: 5, 
+     }],
+ };
 
+ 
 describe('<ListingList />', () => {
   it('renders two components', () => {
-     const wrapper = shallow(<ListingList listing={multipleReviews} />);
-     expect(wrapper.find('div').children()).to.have.lengthOf(2);
+     const wrapper = shallow(<ListingList {...props} />);
+     expect(wrapper.exists()).toBe(true);
+    });
   });
-});
 
