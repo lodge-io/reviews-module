@@ -12,11 +12,13 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.get('/', (req, res) => res.send('Hello World!'));
 
-app.get('/reviews', (req, res) => {
-  db.findListings((err, results) => {
+
+app.get('/reviews/:id', (req, res) => {
+  db.findOneListing(req.params.id, (err, results) => {
     if (err) {
       res.status(404).end();
     } else {
+      console.log('results!!', results);
       res.send(results);
     }
   });
