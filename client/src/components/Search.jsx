@@ -19,7 +19,10 @@ const ReviewCount = styled.span`
 const ReveiwsStarSearch = styled.span`
   display: flex;
   flex-direction: row;
+  padding-bottom: 15px;
+  padding-top: 5px;
 `;
+
 
 const TealStar = styled.span`
   font-family: Circular, -apple-system, system-ui, Roboto, "Helvetica Neue", sans-serif;
@@ -38,7 +41,18 @@ const GrayStar = styled.span`
   flex-direction: row;
 `;
 
+const Line = styled.hr`
+  border-top: 1px solid Gainsboro;
+`;
 
+const Input = styled.input`
+  border-radius: 4px;
+  height:30px
+  width:180px;
+  border: 1px solid Gainsboro;
+  font-family: Circular, -apple-system, system-ui, Roboto, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+`;
 
 const Search = (props) => {
   let totalAvgRating = <TealStar>★★★★★</TealStar>
@@ -63,15 +77,16 @@ const Search = (props) => {
           <ReviewsSearch>
             {totalAvgRating}
           </ReviewsSearch>
-       </ReviewCount>
+        </ReviewCount>
         <form onSubmit={props.handleFilterReview}>
-          <input
+          <Input
             type="text"
             placeholder="Search reviews"
             onChange={(event) => { props.handleChange(event); }}
           />
         </form>
       </ReveiwsStarSearch>
+      <Line></Line>
     </div>
   );
 };
