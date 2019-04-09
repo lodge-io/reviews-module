@@ -6,10 +6,11 @@ const ReadMore = styled.a`
   font-size: 16px;
   line-height: 22px;
   text-align: left;
-  color: #008489
+  color: #008489;
+
 `;
 
-const Body = styled.div`
+const Body = styled.span`
   font-family: Circular, -apple-system, system-ui, Roboto, "Helvetica Neue", sans-serif;
   font-size: 16px;
   line-height: 22px;
@@ -22,7 +23,11 @@ const Body = styled.div`
 `;
 
 const Line = styled.hr`
-  border-top: 1px solid Gainsboro;
+  border-top: .5px solid Gainsboro;
+`;
+
+const ReadMoreButton = styled.span`
+  flex-direction: row;
 `;
 
 
@@ -40,7 +45,7 @@ class ListingListEntry extends React.Component {
     if (this.state.expanded) {
       return this.props.review;
     }
-    return this.props.review.slice(0, 350);
+    return this.props.review.slice(0, 300);
   }
 
   expandedText() {
@@ -54,7 +59,7 @@ class ListingListEntry extends React.Component {
       <div>
         <Body>
           {this.getMoreTextDiv()}
-          <ReadMore onClick={this.expandedText}>{this.state.expanded === false ? <div>...Read more</div> : null}</ReadMore>
+          <ReadMore onClick={this.expandedText}>{this.state.expanded === false ? <ReadMoreButton>...Read more</ReadMoreButton> : null}</ReadMore>
         </Body>
         <Line></Line>
       </div>
@@ -63,4 +68,3 @@ class ListingListEntry extends React.Component {
 }
 
 export default ListingListEntry;
-
