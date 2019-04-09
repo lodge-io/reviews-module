@@ -3,7 +3,7 @@
 
 ## NPM ##
 npm
-npm-debug.log
+npm-debug.logg
 node_modules/
 
 pids
@@ -21,6 +21,4 @@ coverage
 .grunt
 
 # Compiled Dirs (http://nodejs.org/api/addons.html)
-build/
-dist/git 
 bundle.js
