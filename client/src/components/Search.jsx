@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
 const ReviewsSearch = styled.span`
   display: flex;
@@ -30,7 +32,8 @@ const TealStar = styled.span`
   font-size: 18px;
   display: flex;
   padding-left: 11px; 
-  line-height: 25.74px;
+  flex-direction: row;
+  letter-spacing: 4px;
 `;
 
 const GrayStar = styled.span`
@@ -39,19 +42,38 @@ const GrayStar = styled.span`
   font-size: 18px;
   display: flex;
   flex-direction: row;
+  letter-spacing: 4px;
+
 `;
 
 const Line = styled.hr`
-  border-top: 1px solid Gainsboro;
+  border-top: .5px solid Gainsboro;
 `;
 
 const Input = styled.input`
   border-radius: 4px;
   height:30px
   width:180px;
-  border: 1px solid Gainsboro;
+  border: 0px;
   font-family: Circular, -apple-system, system-ui, Roboto, "Helvetica Neue", sans-serif;
   font-size: 14px;
+  outline: none;
+`;
+
+const Nav = styled.span`
+  margin-left: 130px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: silver;
+  border-radius: 5px;
+
+  :hover {
+    border-color: teal;
+  }
+`;
+
+const SearchPad = styled.span`
+  padding: 5px;
 `;
 
 const Search = (props) => {
@@ -71,20 +93,25 @@ const Search = (props) => {
     <div>
       <ReveiwsStarSearch>
         <ReviewCount>
-          {props.numberOfReviews} 
+          {props.totalReviewCount} 
           {' '}
           Reviews
           <ReviewsSearch>
             {totalAvgRating}
           </ReviewsSearch>
         </ReviewCount>
-        <form onSubmit={props.handleFilterReview}>
-          <Input
-            type="text"
-            placeholder="Search reviews"
-            onChange={(event) => { props.handleChange(event); }}
-          />
-        </form>
+        <Nav>
+          <form onSubmit={props.handleFilterReview}>
+            <SearchPad>
+              <FontAwesomeIcon icon={faSearch} />
+            </SearchPad>
+            <Input
+              type="search"
+              placeholder="Search reviews"
+              onChange={(event) => { props.handleChange(event); }}
+            />
+          </form>
+        </Nav>
       </ReveiwsStarSearch>
       <Line></Line>
     </div>
