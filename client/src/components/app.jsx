@@ -3,8 +3,43 @@ import $ from 'jquery';
 import ListingList from './ListingList.jsx';
 import Search from './Search.jsx'
 import StarRatings from './StarRatings.jsx'
-import ListingListEntry from './ListingListEntry.jsx';
 import styled from 'styled-components';
+
+const AppComponent = styled.div`
+  @media (max-width: 600px) {
+  }
+`;
+
+const MentionedWord = styled.div`
+  font-family: Circular, -apple-system, system-ui, Roboto, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  padding-right: 80px;
+  color: #484848;
+`;
+
+const Line = styled.hr`
+  border-top: .5px solid Gainsboro;
+`;
+
+const BackToHomePage = styled.span`
+  display: flex;
+  flex-direction: row;
+  font-family: Circular, -apple-system, system-ui, Roboto, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  color: #008489;
+`;
+
+const Half = styled.div`
+  fill: #008489;
+  z-index:1;
+`;
+
+const Full = styled.div`
+  fill: #484848;
+  z-index:2;
+`;
 
 class App extends React.Component {
   constructor() {
@@ -23,18 +58,38 @@ class App extends React.Component {
         value: 0,
       },
       totalAvgRating: 0,
+      haveSearched: false, 
+      totalReviewCount: 0,
+      filteredReviews: [],
     };
     this.getMockData = this.getMockData.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleFilterReview = this.handleFilterReview.bind(this);
     this.getAvgRating = this.getAvgRating.bind(this);
     this.calculateIndivudualRatings = this.calculateIndivudualRatings.bind(this);
+    this.handleClickHomeScreen = this.handleClickHomeScreen.bind(this);
   }
-
+  
   componentDidMount() {
     this.getMockData();
   }
   
+  getMockData() {
+    $.ajax({
+      url: '/reviews/1',
+      type: 'GET',
+      success: (data) => {
+        this.setState({
+          mockData: data,
+          totalReviewCount: data.reviews.length,
+        });
+        this.getAvgRating();
+        this.calculateIndivudualRatings();
+      },
+      error: () => (console.log('error')),
+    });
+  }
+
   calculateIndivudualRatings() {
     let totalAccuracyRating = 0;
     let totalCommunicationRating = 0;
@@ -82,20 +137,6 @@ class App extends React.Component {
     }
   }
 
-  getMockData() {
-    $.ajax({
-      url: '/reviews/1',
-      type: 'GET',
-      success: (data) => {
-        this.setState({
-          mockData: data,
-        });
-        this.getAvgRating();
-        this.calculateIndivudualRatings();
-      },
-      error: () => {console.log('error')}
-    });
-  }
 
   handleChange(event) {
     event.preventDefault();
@@ -105,25 +146,58 @@ class App extends React.Component {
   }
   
   handleFilterReview(event) {
+    console.log('yes!')
     event.preventDefault();
     const filteredReview = this.state.mockData.reviews.filter((rev) => {
       return rev.reviewbody.includes(this.state.filterWord);
     });
     this.setState({
-      mockData: {
-        reviews: filteredReview,
-      },
+      haveSearched: true,
+      filteredReviews: filteredReview,
     });
+  }
+
+  handleClickHomeScreen() {
+    this.setState({
+      haveSearched: false,
+    })
   }
   
   render() {
+    if (this.state.haveSearched && this.state.mockData.reviews.length === 0) {
+      return (
+        <AppComponent>
+          <div><Search handleChange={this.handleChange} handleFilterReview={this.handleFilterReview} totalReviewCount={this.state.totalReviewCount} totalAvgRating={this.state.totalAvgRating} filteredReviews={this.state.filteredReviews}/></div>
+          <Line></Line>
+          <BackToHomePage>
+            <MentionedWord>None of our guests have mentioned “{this.state.filterWord}”</MentionedWord>
+            <a onClick={this.handleClickHomeScreen}>Back to all reviews</a>
+          </BackToHomePage>
+        </AppComponent>
+      );
+    }
+    if (this.state.haveSearched) {
+      return (
+        <AppComponent>
+          <div><Search handleChange={this.handleChange} handleFilterReview={this.handleFilterReview} totalReviewCount={this.state.totalReviewCount} totalAvgRating={this.state.totalAvgRating} filteredReviews={this.state.filteredReviews}/></div>
+          <Line></Line>
+          <BackToHomePage>
+            <MentionedWord>{this.state.filteredReviews.length} {' '} guests have mentioned “{this.state.filterWord}”</MentionedWord>
+            <a onClick={this.handleClickHomeScreen}>Back to all reviews</a>
+          </BackToHomePage>
+          <Line></Line>
+          <div><ListingList reviews={this.state.mockData.reviews} filteredReviews={this.state.filteredReviews} haveSearched={this.state.haveSearched} /></div>
+        </AppComponent>
+      );
+    }
+
     return (
-      <div>
-        <div><Search handleChange={this.handleChange} handleFilterReview={this.handleFilterReview} numberOfReviews={this.state.mockData.reviews.length} totalAvgRating={this.state.totalAvgRating}/></div>
-        <div><StarRatings rating={this.state.rating} totalAvgRating={this.state.totalAvgRating}/></div>
-        <div><ListingList listing={this.state.mockData.reviews} /></div>
-      </div>
-    );
+      <AppComponent>
+          <div><Search handleChange={this.handleChange} handleFilterReview={this.handleFilterReview} totalReviewCount={this.state.totalReviewCount} totalAvgRating={this.state.totalAvgRating} filteredReviews={this.state.filteredReviews}/></div>
+          <div><StarRatings rating={this.state.rating} totalAvgRating={this.state.totalAvgRating}/></div>
+          <div><ListingList reviews={this.state.mockData.reviews} filteredReviews={this.state.filteredReviews} haveSearched={this.state.haveSearched}/></div>
+        </AppComponent>
+    )
   }
 }
 
