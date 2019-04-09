@@ -108,7 +108,7 @@ class ListingList extends React.Component {
     });
 
     if (!this.props.haveSearched) {
-
+      
       const pageNumbers = [];
       for (let i = 1; i <= Math.ceil(this.props.reviews.length / reviewsPerPage); i += 1) {
         pageNumbers.push(i);
