@@ -1,5 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
+
+const { styled } = window;
 
 const ReadMore = styled.a`
   font-family: Circular, -apple-system, system-ui, Roboto, "Helvetica Neue", sans-serif;
@@ -7,7 +8,6 @@ const ReadMore = styled.a`
   line-height: 22px;
   text-align: left;
   color: #008489;
-
 `;
 
 const Body = styled.span`
@@ -31,7 +31,7 @@ const ReadMoreButton = styled.span`
 `;
 
 
-class ListingListEntry extends React.Component {
+class Readmore extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,10 +42,12 @@ class ListingListEntry extends React.Component {
   }
 
   getMoreTextDiv() {
-    if (this.state.expanded) {
-      return this.props.review;
+    const { expanded } = this.state;
+    const { review } = this.props;
+    if (expanded) {
+      return review;
     }
-    return this.props.review.slice(0, 300);
+    return review.slice(0, 300);
   }
 
   expandedText() {
@@ -55,16 +57,17 @@ class ListingListEntry extends React.Component {
   }
 
   render() {
+    const { expanded } = this.state;
     return (
       <div>
         <Body>
           {this.getMoreTextDiv()}
-          <ReadMore onClick={this.expandedText}>{this.state.expanded === false ? <ReadMoreButton>...Read more</ReadMoreButton> : null}</ReadMore>
+          <ReadMore onClick={this.expandedText}>{expanded === false ? <ReadMoreButton>...Read more</ReadMoreButton> : null}</ReadMore>
         </Body>
-        <Line></Line>
+        <Line />
       </div>
     );
   }
 }
 
-export default ListingListEntry;
+export default Readmore;
