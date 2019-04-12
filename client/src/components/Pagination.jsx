@@ -1,6 +1,7 @@
 import React from 'react';
-import ListingListEntry from './ListingListEntry.jsx';
-import styled from 'styled-components';
+import Readmore from './Readmore.jsx';
+
+const { styled } = window;
 
 const Avatar = styled.img`
   width: 48px;
@@ -50,14 +51,19 @@ const PageNumber = styled.a`
   }
 `;
 
-class ListingList extends React.Component {
+const Review = styled.div`
+  width: 600px;
+  display: block;
+`;
+
+class Pagination extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       currentPage: 1,
       reviewsPerPage: 7,
     };
-    this.handleClick = this.handleClick.bind(this)
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(event) {
@@ -68,11 +74,12 @@ class ListingList extends React.Component {
 
   render() {
     const { currentPage, reviewsPerPage } = this.state;
+    const { reviews, filteredReviews } = this.props;
     const indexOfLastReview = currentPage * reviewsPerPage;
     const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
-    const currentReviews = this.props.reviews.slice(indexOfFirstReview, indexOfLastReview);
-    const filteredReviews = this.props.filteredReviews.slice(indexOfFirstReview, indexOfLastReview);
-
+    const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
+    const filterReviews = filteredReviews.slice(indexOfFirstReview, indexOfLastReview);
+    
     const renderReviews = currentReviews.map((review, index) => {
       return (
         <div key={index}>
@@ -84,13 +91,13 @@ class ListingList extends React.Component {
             </NameDate>
           </AvatarNameDate>
           <div>
-            <ListingListEntry review={review.reviewbody} />
+            <Readmore review={review.reviewbody} />
           </div>
         </div>
       );
     });
 
-    const renderFilteredReviews = filteredReviews.map((review, index) => {
+    const renderFilteredReviews = filterReviews.map((review, index) => {
       return (
         <div key={index}>
           <AvatarNameDate>
@@ -101,7 +108,7 @@ class ListingList extends React.Component {
             </NameDate>
           </AvatarNameDate>
           <div>
-            <ListingListEntry review={review.reviewbody} />
+            <Readmore review={review.reviewbody} />
           </div>
         </div>
       );
@@ -110,13 +117,13 @@ class ListingList extends React.Component {
     if (!this.props.haveSearched) {
       
       const pageNumbers = [];
-      for (let i = 1; i <= Math.ceil(this.props.reviews.length / reviewsPerPage); i += 1) {
+      for (let i = 1; i <= Math.ceil(reviews.length / reviewsPerPage); i += 1) {
         pageNumbers.push(i);
       }
 
-      const renderPageNumbers = pageNumbers.map((number) => {
+      const renderPageNumbers = pageNumbers.map((number, index) => {
         return (
-          <span>
+          <span key={index}>
             <PageNumber
               key={number}
               id={number}
@@ -132,9 +139,9 @@ class ListingList extends React.Component {
       return (
         <div>
           <div>
-            <div>
+            <Review>
               {renderReviews}
-            </div>
+            </Review>
             <div id="page-numbers">
               {renderPageNumbers}
             </div>
@@ -146,13 +153,13 @@ class ListingList extends React.Component {
     if (this.props.haveSearched) {
 
       const pageNumbers = [];
-      for (let i = 1; i <= Math.ceil(this.props.filteredReviews.length / reviewsPerPage); i += 1) {
+      for (let i = 1; i <= Math.ceil(filterReviews.length / reviewsPerPage); i += 1) {
         pageNumbers.push(i);
       }
 
-      const renderPageNumbers = pageNumbers.map((number) => {
+      const renderPageNumbers = pageNumbers.map((number, index) => {
         return (
-          <span>
+          <span key={index}>
             <PageNumber
               key={number}
               id={number}
@@ -181,4 +188,4 @@ class ListingList extends React.Component {
   }
 }
 
-export default ListingList;
+export default Pagination;
