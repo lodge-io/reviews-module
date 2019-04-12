@@ -1,5 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
+
+const { styled } = window;
+
 
 const TealStar = styled.span`
   color: #008489;
@@ -53,20 +55,20 @@ const StarRatings = ({rating}) => {
   let location = [];
   let checkin = [];
   let value = [];
-  let ratings = [rating.accuracy, rating.communication, rating.cleanliness, rating.location, rating.checkin, rating.value];
-  let ratingName = [accuracy, communication, cleanliness, location, checkin, value];
+  const ratings = [rating.accuracy, rating.communication, rating.cleanliness, rating.location, rating.checkin, rating.value];
+  const ratingName = [accuracy, communication, cleanliness, location, checkin, value];
 
   for (let i = 0; i < ratings.length; i += 1) {
     if (ratings[i] === 1) {
-      ratingName[i] = <TealStar>★<GrayStar>★★★★</GrayStar></TealStar>
+      ratingName[i] = <TealStar>★<GrayStar>★★★★</GrayStar></TealStar>;
     } else if (ratings[i] === 2) {
-      ratingName[i] = <TealStar>★★<GrayStar>★★★</GrayStar></TealStar>
+      ratingName[i] = <TealStar>★★<GrayStar>★★★</GrayStar></TealStar>;
     } else if (ratings[i] === 3) {
-      ratingName[i] = <TealStar>★★★<GrayStar>★★</GrayStar></TealStar>
+      ratingName[i] = <TealStar>★★★<GrayStar>★★</GrayStar></TealStar>;
     } else if (ratings[i] === 4) {
-      ratingName[i] = <TealStar>★★★★<GrayStar>★</GrayStar></TealStar>
+      ratingName[i] = <TealStar>★★★★<GrayStar>★</GrayStar></TealStar>;
     } else if (ratings[i] === 5) {
-      ratingName[i] = <TealStar>★★★★★</TealStar>
+      ratingName[i] = <TealStar>★★★★★</TealStar>;
     }
   }
 
@@ -74,7 +76,6 @@ const StarRatings = ({rating}) => {
     <div>
 
       <RatingContainer>
-        
         <div>
           <TopBottomSpacings>Accuracy</TopBottomSpacings> 
           <TopBottomSpacings>Communication</TopBottomSpacings>
@@ -88,7 +89,7 @@ const StarRatings = ({rating}) => {
         </div>
 
         <MiddleSpacing>
-          <TopBottomSpacings>Location</TopBottomSpacings> 
+          <TopBottomSpacings>Location</TopBottomSpacings>
           <TopBottomSpacings>Check-in</TopBottomSpacings>
           <TopBottomSpacings>Value</TopBottomSpacings>
         </MiddleSpacing>
@@ -100,7 +101,7 @@ const StarRatings = ({rating}) => {
         </div>
 
       </RatingContainer>
-      <Line></Line>
+      <Line />
     </div>
   );
 };

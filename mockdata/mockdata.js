@@ -2,7 +2,7 @@ const faker = require('faker');
 
 const createUserReviews = () => {
   const listings = [];
-  for (let x = 1; x <= 5; x += 1) {
+  for (let x = 1; x <= 100; x += 1) {
     const userId = {
       id: x,
     };
@@ -14,7 +14,7 @@ const createUserReviews = () => {
         name: faker.name.firstName(),
         date: `${faker.date.month()} ${faker.random.number({ min: 2000, max: 2019 })}`,
         image: faker.image.avatar(),
-        reviewbody: faker.lorem.paragraph(15),
+        reviewbody: faker.lorem.paragraph(12),
         accuracy: faker.random.number({ min: 2, max: 5 }),
         communication: faker.random.number({ min: 2, max: 5 }),
         cleanliness: faker.random.number({ min: 2, max: 5 }),

@@ -1,7 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+
+const { styled } = window;
 
 const ReviewsSearch = styled.span`
   display: flex;
@@ -66,7 +67,6 @@ const Nav = styled.span`
   border-width: 1px;
   border-color: silver;
   border-radius: 5px;
-
   :hover {
     border-color: teal;
   }
@@ -77,7 +77,7 @@ const SearchPad = styled.span`
 `;
 
 const Search = (props) => {
-  let totalAvgRating = <TealStar>★★★★★</TealStar>
+  let totalAvgRating = <TealStar>★★★★★</TealStar>;
   if (props.totalAvgRating === 1) {
     totalAvgRating = <TealStar>★<GrayStar>★★★★</GrayStar></TealStar>;
   } else if (props.totalAvgRating === 2) {
@@ -113,7 +113,7 @@ const Search = (props) => {
           </form>
         </Nav>
       </ReveiwsStarSearch>
-      <Line></Line>
+      <Line />
     </div>
   );
 };
