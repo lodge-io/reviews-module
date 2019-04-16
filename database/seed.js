@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const db = require('./index.js');
 const fakeData = require('../mockdata/mockdata.js');
 const schema = require('../database/schema.js');
 
@@ -11,7 +12,7 @@ const saveListings = () => {
     if (err) {
       console.log(err);
     } else {
-      console.log('created!');
+      db.close();
     }
   });
 };
